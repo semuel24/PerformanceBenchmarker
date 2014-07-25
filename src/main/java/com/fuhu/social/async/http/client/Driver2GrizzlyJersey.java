@@ -18,7 +18,6 @@ public class Driver2GrizzlyJersey {
 		int semaphoreSize = Integer.valueOf(args[0]);
 		int total = Integer.valueOf(args[1]);
 		String host = args[2];
-		String userId = args[3];
 		
 		semaphore = new Semaphore(semaphoreSize);
 		long stime = System.currentTimeMillis(); 
@@ -30,7 +29,7 @@ public class Driver2GrizzlyJersey {
 		//start to send request
 		for(int i=0; i<total; i++) {
 			semaphore.acquire();
-			request(asyncHttpClient, host, userId);
+			request(asyncHttpClient, host);
 		}
 		
 		System.out.println("thread waiting " + semaphore.getQueueLength());
@@ -49,11 +48,14 @@ public class Driver2GrizzlyJersey {
 			asyncHttpClient.close();
 		}
 	}
-	private static void request(AsyncHttpClient asyncHttpClient, String _host, String _userId) throws IOException {
+	
+	//host = :8881/chatuser/1/conversations  sync
+	//host = :8881/conversation/1/messages   async
+	private static void request(AsyncHttpClient asyncHttpClient, String _host) throws IOException {
 		
 		asyncHttpClient
 				.prepareGet(
-						"http://" + _host + ":8881/chatuser/" + _userId + "/conversations")
+						"http://" + _host)
 				.addHeader("Accept", "application/json")
 				.addHeader("Content-Type", "application/json")
 				.addHeader("sessionKey", "5459a72d-5601-432f-9fd8-528155c09f1b")
