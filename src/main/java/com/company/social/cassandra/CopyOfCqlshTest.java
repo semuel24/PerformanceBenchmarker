@@ -1,4 +1,4 @@
-package com.fuhu.social.cassandra;
+package com.company.social.cassandra;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

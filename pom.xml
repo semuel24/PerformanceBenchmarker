@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.fuhu.social</groupId>
+	<groupId>com.company.social</groupId>
 	<artifactId>performance.test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
@@ -45,7 +45,7 @@
 		<repository>
 			<id>libs-release</id>
 			<name>libs-release</name>
-			<url>https://artifactory.fuhu.org/artifactory/libs-release</url>
+			<url>https://artifactory.company.org/artifactory/libs-release</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -53,7 +53,7 @@
 		<repository>
 			<id>libs-snapshot</id>
 			<name>libs-snapshot</name>
-			<url>https://artifactory.fuhu.org/artifactory/libs-snapshot</url>
+			<url>https://artifactory.company.org/artifactory/libs-snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>

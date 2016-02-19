@@ -1,4 +1,4 @@
-package com.fuhu.social.chat.webtarget;
+package com.company.social.chat.webtarget;
 
 import java.net.URI;
 import java.util.UUID;
@@ -13,12 +13,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.client.Invocation.*;
 
-public class PollTest {
+public class CopyOfPollTest {
 
 	private static WebTarget target;
 	/* semaphore */
-	private final static int semaphoreSize = 1000;
-	private final static Semaphore semaphore = new Semaphore(semaphoreSize);
+	private final static Semaphore semaphore = new Semaphore(1000);
 	private static ExecutorService threadPoolExecutor;
 	private static AtomicLong countR = new AtomicLong(0L);
 	private static AtomicLong countERR = new AtomicLong(0L);
@@ -27,16 +26,14 @@ public class PollTest {
 	static {
 		// web target
 		StringBuilder builder = new StringBuilder();
-//		builder.append("http://app01.social-dev.fuhu.org:8881");
-		builder.append("http://localhost:8881");
+		builder.append("http://app01.social-dev.company.org:8881");
 		target = ClientBuilder.newClient().target(
 				URI.create(builder.toString()));
 
 		/* executor config */
 		int corePoolSize = 1000;
-		int maxPoolSize = Integer.MAX_VALUE;
-		long keepAliveTime = Long.MAX_VALUE;
-		System.out.println("executor pool " + corePoolSize + " -> " + maxPoolSize);
+		int maxPoolSize = 2000;
+		long keepAliveTime = 5000;
 		threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maxPoolSize,
 				keepAliveTime, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<Runnable>());
@@ -46,7 +43,6 @@ public class PollTest {
 		
 		final long targetcount = Long.parseLong(args[0]);
 		final long stime = System.currentTimeMillis(); 
-		System.out.println("semaphore size: " + semaphoreSize);
 		System.out.println("###started test at time: "
 				+ stime + " | to count:" + targetcount);
 		
@@ -54,30 +50,14 @@ public class PollTest {
 				5, "5459a72d-5601-432f-9fd8-528155c09f1b");
 		
 		for (int i = 0; i < targetcount; i++) {
-
+			
 			semaphore.acquire();
 			threadPoolExecutor.submit(new Callable<Object>() {
 				public Object call() throws Exception {
-					String r = null;
-					try{
-						r = execPollMessage(bd);
-					}catch(Exception e) {
-						System.out.println(e);
-					}
-//					String r = "{\"status\":\"0\"}"; 
-					
+
+					System.out.println("thread number: " + countR.getAndAdd(1L));
+					Thread.sleep(3600000);
 					semaphore.release();
-					if(r == null || !r.contains("\"0\"")) {
-						System.out.println(r + " | " + countERR.getAndAdd(1L));
-					}
-					long _r = countR.addAndGet(1L);
-					if (targetcount - _r < 3 ) {//finish loop
-						long etime = System.currentTimeMillis(); 
-						System.out.println("###fiished test at time: " + etime);
-						long lt = (etime-stime)/1000;
-						System.out.println("time elapsed: " + lt);
-						System.out.println("count/second: " + targetcount/lt);
-					}
 					return null;
 				}
 			});
@@ -89,8 +69,6 @@ public class PollTest {
 			System.out.println("waiting...");
 			Thread.sleep(500);
 		}
-		
-		Thread.sleep(5000);//sent requests may not come back yet, so wait for a while
 		threadPoolExecutor.shutdown();
 		
 		

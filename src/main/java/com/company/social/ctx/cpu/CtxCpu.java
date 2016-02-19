@@ -1,4 +1,4 @@
-package com.fuhu.social.ctx.cpu;
+package com.company.social.ctx.cpu;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

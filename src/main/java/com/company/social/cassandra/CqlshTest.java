@@ -1,4 +1,4 @@
-package com.fuhu.social.cassandra;
+package com.company.social.cassandra;
 
 import java.util.Random;
 import java.util.UUID;
@@ -31,15 +31,15 @@ public static void main(String [] args) throws InterruptedException {
 //		//dev cassandra
 //		Builder builder = Cluster.builder().withCredentials("admin", "Qnmgnps3FtaGo6lBRRyzoMEFGb");
 //		Builder builder = Cluster.builder().withCredentials("dev", "nabi");
-//		String[] contactPoints = { "node-a01.csdr-dev.fuhu.org","node-a02.csdr-dev.fuhu.org"};
+//		String[] contactPoints = { "node-a01.csdr-dev.company.org","node-a02.csdr-dev.company.org"};
 		
 		//dev3 cassandra
 //        Builder builder = Cluster.builder().withCredentials("dev", "nabi");
-//        String[] contactPoints = { "node-a01.csdr-dev3.fuhu.org","node-a02.csdr-dev3.fuhu.org"};
+//        String[] contactPoints = { "node-a01.csdr-dev3.company.org","node-a02.csdr-dev3.company.org"};
 		
 		//qa cassandra
 //		Builder builder = Cluster.builder().withCredentials("admin", "0HL8wcw469HoLnWqL1");
-//		String[] contactPoints = { "node-a01.csdr-qa.fuhu.org","node-a02.csdr-qa.fuhu.org"};
+//		String[] contactPoints = { "node-a01.csdr-qa.company.org","node-a02.csdr-qa.company.org"};
 								    
 		for (String cp : contactPoints)
 			builder.addContactPoint(cp);

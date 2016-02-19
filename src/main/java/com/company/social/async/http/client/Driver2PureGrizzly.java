@@ -1,4 +1,4 @@
-package com.fuhu.social.async.http.client;
+package com.company.social.async.http.client;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
